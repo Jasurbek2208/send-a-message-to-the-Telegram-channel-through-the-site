@@ -1,4 +1,4 @@
-import TelegramBot from "telegram-bot-api";
+const {TelegramBot} = require("telegram-bot-api");
 
 const form = document.getElementById('form');
 const message = document.getElementById('message');
