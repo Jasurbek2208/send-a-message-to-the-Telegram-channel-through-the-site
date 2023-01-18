@@ -1,8 +1,0 @@
-{
-  "name": "my-app",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-     "telegram-bot-api": "0.61.0",
-  },
-}
