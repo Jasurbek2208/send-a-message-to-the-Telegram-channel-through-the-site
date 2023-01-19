@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   display: flex;
   align-items: center;
@@ -21,7 +27,8 @@ button {
   width: 20%;
   background-color: #4caf50;
   color: white;
-  padding: 14px 20px;
+  padding: 14px 50px 14px 20px;
+  margin: 8px 0;
   border: none;
   cursor: pointer;
 }

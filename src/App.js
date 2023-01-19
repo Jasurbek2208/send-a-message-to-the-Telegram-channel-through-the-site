@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import TelegramBot from 'telegram-bot-api';
 
 function App() {
   const [message, setMessage] = useState('');
@@ -9,13 +8,19 @@ function App() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    const bot = new TelegramBot('5117041696:AAG2IRH4POh4BWTZcF_trTkJat2ERQ6ckME');
+
     try {
-      await bot.sendMessage({
-        chat_id: '5117041696',
-        text: message
+      const response = await fetch('/api/send-message', {
+        method: 'POST',
+        body: JSON.stringify({ message }),
+        headers: { 'Content-Type': 'application/json' }
       });
-      setMessageSent(true);
+      const data = await response.json();
+      if (data.success) {
+        setMessageSent(true);
+      } else {
+        setMessageSent(false);
+      }
     } catch (error) {
       console.log(error);
       setMessageSent(false);
