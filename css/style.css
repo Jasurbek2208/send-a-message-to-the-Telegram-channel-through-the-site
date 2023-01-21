@@ -13,6 +13,7 @@ body {
 }
 
 #form {
+  padding: 30px 16px 60px;
   margin: 0 auto;
   max-width: 400px;
   min-width: 300px;
@@ -31,17 +32,27 @@ body {
 }
 
 #form > #text-input {
-  width: 100%;
-  padding: 10px 12px;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 60px;
+  max-height: 500px;
+  padding: 15px;
   border-radius: 5px;
   border: 1px solid #4caf50;
 }
-
 #form > #text-input:focus {
   outline: 2px solid #4caf50;
 }
 
+#form > #text-input.On {
+  border: 1px solid red;
+}
+#form > #text-input.On:focus {
+  outline: 2px solid red;
+}
+
 #form > button {
+  position: relative;
   cursor: pointer;
   width: 100%;
   padding: 10px 12px;
@@ -56,4 +67,26 @@ body {
 #form > button:focus {
   outline: none;
   background-color: #45a049;
+}
+
+.error-text,
+.success-text {
+  position: absolute;
+  left: 50%;
+  bottom: -40px;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  width: 100%;
+  color: red;
+  display: none;
+}
+.error-text.On {
+  display: block;
+}
+
+.success-text {
+  color: #45a049;
+}
+.success-text.On {
+  display: block;
 }
