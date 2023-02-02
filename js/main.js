@@ -1,6 +1,7 @@
 const CHAT_ID = '-1001680103791';
 const TOKEN = '5833819728:AAH1dRS8nucWa5_Mh_CmoKUJOIx5uTsYg6I';
-const API_URL = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+const API_URL = `https://api.telegram.org/bot${TOKEN}/sendDocument`;
+// const API_URL = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
 
 // button
 const btn = document.getElementById('form-btn');
@@ -16,14 +17,21 @@ success.className = "success-text";
 // Form submit
 document.getElementById('form').addEventListener('submit', async function (e) {
     e.preventDefault();
+    const img = this.file.files[0];
+    console.log(img);
     let message = `<b>${this.text.value}</b>`;
     btn.setAttribute("disabled", "true");
-
+    
     try {
         await axios.post(API_URL, {
             chat_id: CHAT_ID,
             parse_mode: "html",
-            text: message,
+            document: img,
+            caption: message,
+        }, {
+            headers: {
+                "Content-Type": 'multipart/form-data',
+            }
         });
         success.textContent = "Message sent successfully!"
         error.classList.remove("On");
