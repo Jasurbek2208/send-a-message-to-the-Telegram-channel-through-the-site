@@ -16,7 +16,7 @@
   <body>
     <form id="form">
       <h1>Send message to Telegram channel</h1>
-      <input type="file" name="file" id="file-input">
+      <input type="file" name="file" id="file-input" />
       <textarea
         placeholder="Enter your message"
         name="text"
@@ -26,6 +26,9 @@
       ></textarea>
       <button type="submit" name="btn" id="form-btn">Send</button>
     </form>
+    <button type="submit" id="btn-get">Send</button>
+
+    <div id="template"></div>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="./js/main.js"></script>

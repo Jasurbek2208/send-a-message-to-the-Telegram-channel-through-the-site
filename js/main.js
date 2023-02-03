@@ -39,7 +39,7 @@ document.getElementById('form').addEventListener('submit', async function (e) {
 
         error.classList.remove("On");
         success.classList.add("On");
-        
+
         this.btn.appendChild(success);
     } catch (err) {
         error.textContent = err.response.data.description + "!";
@@ -61,3 +61,31 @@ document.querySelector('textarea').addEventListener('keyup', function () {
     error.classList.remove("On");
     this.classList.remove("On");
 })
+
+// Get channel posts
+document.querySelector('#btn-get').addEventListener('click', async function () {
+    console.log("kirdi !");
+    try {
+        const res = await fetch(`https://api.telegram.org/bot${TOKEN}/getUpdates?chat_id=1680103791`);
+        // const res = await fetch(`https://api.telegram.org/bot${TOKEN}/getUpdates?chat_id=1680103791`);
+        const data = (await res.json()).result;
+        console.log(data);
+        renderPosts(data);
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+function renderPosts(data) {
+    data.forEach((post) => {
+        console.log(post.channel_post.text || post.channel_post.caption);
+        document.getElementById("template").innerHTML += `
+            <div class="post">
+                ${post.channel_post.photo ? `<img src=${post.channel_post.photo[0].file_name} alt=${post.channel_post.caption}>` : `<div class="no-img"></div>`}
+                <div class="post__body">
+                    <p>${post.channel_post.text || post.channel_post.caption || "no comment"}</p>
+                </div>
+            </div>
+        `;
+    })
+}
