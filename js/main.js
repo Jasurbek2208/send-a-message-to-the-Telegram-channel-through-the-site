@@ -1,6 +1,5 @@
-const CHAT_ID = '-1001680103791';
-const TOKEN = '5833819728:AAH1dRS8nucWa5_Mh_CmoKUJOIx5uTsYg6I';
-const API_URL = `https://api.telegram.org/bot${TOKEN}/`;
+// const CHAT_ID = '-1001680103791';
+// const TOKEN = '5833819728:AAH1dRS8nucWa5_Mh_CmoKUJOIx5uTsYg6I';
 
 // button
 const btn = document.getElementById('form-btn');
@@ -15,6 +14,7 @@ success.className = "success-text";
 
 // Form submit
 document.getElementById('form').addEventListener('submit', async function (e) {
+    const API_URL = `https://api.telegram.org/bot${this.bot_token.value}/`;
     e.preventDefault();
     btn.setAttribute("disabled", "true");
 
@@ -24,7 +24,7 @@ document.getElementById('form').addEventListener('submit', async function (e) {
 
     try {
         await axios.post(CURRENT_API_URL, {
-            chat_id: CHAT_ID,
+            chat_id: this.chat_id.value,
             parse_mode: "html",
             document: img,
             text: message,
@@ -42,7 +42,7 @@ document.getElementById('form').addEventListener('submit', async function (e) {
 
         this.btn.appendChild(success);
     } catch (err) {
-        error.textContent = err.response.data.description + "!";
+        error.textContent = err.response.data.description === "Not Found" ? "Invalid CHAT ID or TOKEN !" : err.response.data.description + "!";
 
         success.classList.remove("On");
         error.classList.add("On");
@@ -50,7 +50,8 @@ document.getElementById('form').addEventListener('submit', async function (e) {
         this.text.classList.add("On");
         this.btn.appendChild(error);
     } finally {
-        form.reset();
+        form.text.value = "";
+        form.file.value = "";
         btn.removeAttribute("disabled");
     }
 });
@@ -63,29 +64,43 @@ document.querySelector('textarea').addEventListener('keyup', function () {
 })
 
 // Get channel posts
-document.querySelector('#btn-get').addEventListener('click', async function () {
-    console.log("kirdi !");
-    try {
-        const res = await fetch(`https://api.telegram.org/bot${TOKEN}/getUpdates?chat_id=1680103791`);
-        // const res = await fetch(`https://api.telegram.org/bot${TOKEN}/getUpdates?chat_id=1680103791`);
-        const data = (await res.json()).result;
-        console.log(data);
-        renderPosts(data);
-    } catch (error) {
-        console.log(error);
-    }
-})
+// document.querySelector('#btn-get').addEventListener('click', async function () {
+//     console.log("kirdi !");
+//     try {
+//         const res = await fetch(`https://api.telegram.org/bot${TOKEN}/getUpdates?chat_id=1680103791`, {
+//             method: "GET",
+//             limit: 100,
+//         }, {
+//             headers: {
+//                 'accept': 'application/json',
+//                 "Content-Type": 'application/json'
+//             }
+//         });
+//         const data = (await res.json()).result;
+//         console.log(data);
+//         renderPosts(data);
+//     } catch (error) {
+//         console.log(error);
+//     }
+// })
 
-function renderPosts(data) {
-    data.forEach((post) => {
-        console.log(post.channel_post.text || post.channel_post.caption);
-        document.getElementById("template").innerHTML += `
-            <div class="post">
-                ${post.channel_post.photo ? `<img src=${post.channel_post.photo[0].file_name} alt=${post.channel_post.caption}>` : `<div class="no-img"></div>`}
-                <div class="post__body">
-                    <p>${post.channel_post.text || post.channel_post.caption || "no comment"}</p>
-                </div>
-            </div>
-        `;
-    })
-}
+
+// render posts to html
+// function renderPosts(data) {
+//     data?.forEach((post) => {
+//         console.log(post.channel_post.text || post.channel_post.caption);
+
+//         document.getElementById("template").innerHTML += `
+
+//             <div class="post">
+//                 ${post.channel_post.photo ? `<img src=${post.channel_post.photo[0].file_name} alt=${post.channel_post.caption}>` : `<div class="no-img"></div>`}
+                
+//                 <div class="post__body">
+//                     <p>${post.channel_post.text || post.channel_post.caption || "no comment"}</p>
+//                 </div>
+                
+//             </div>
+
+//         `;
+//     })
+// }

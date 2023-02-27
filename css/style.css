@@ -67,6 +67,14 @@ body {
   background-color: #fff;
 }
 
+#form > .settings__wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 #form > #text-input {
   min-width: 100%;
   max-width: 100%;
@@ -76,14 +84,21 @@ body {
   border-radius: 5px;
   border: 1px solid #4caf50;
 }
-#form > #text-input:focus {
+
+#form > .settings__wrapper > #text-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #4caf50;
+}
+#form #text-input:focus {
   outline: 2px solid #4caf50;
 }
 
-#form > #text-input.On {
+#form #text-input.On {
   border: 1px solid red;
 }
-#form > #text-input.On:focus {
+#form #text-input.On:focus {
   outline: 2px solid red;
 }
 
@@ -129,6 +144,7 @@ body {
 }
 
 #template {
+  padding: 22px 0px 33px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -145,7 +161,7 @@ body {
   overflow: hidden;
 }
 
-#template > .post > img, 
+#template > .post > img,
 #template > .post > .no-img {
   position: relative;
   width: 100%;
